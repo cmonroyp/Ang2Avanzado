@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+/* pointer en el html account-settings */
+
+#themecolors li a {
+    cursor: pointer;
+}
