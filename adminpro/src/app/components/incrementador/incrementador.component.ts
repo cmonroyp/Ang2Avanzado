@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class IncrementadorComponent implements OnInit {
   @Input('nombre') leyenda: string = 'leyenda';//en caso que se quiera nombar diferente en el componente padre
   @Output() cambioValor: EventEmitter<number> = new EventEmitter();
 
-  constructor() { }
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit() {
     console.log('datos recibidos',this.leyenda);
@@ -38,7 +38,6 @@ export class IncrementadorComponent implements OnInit {
 
     //devuelvo al elemHTML el valor digitado en el input 
     //elemHTML.value = this.progreso;
-   
     this.txtProgress.nativeElement.value = this.progreso;
     this.cambioValor.emit(this.progreso);
   }
