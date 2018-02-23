@@ -36,7 +36,7 @@ export class AccountSettingsComponent implements OnInit {
       this.renderer.removeClass(ref,'working');
     }
     //se agrega el check al nuevo tema seleccionado
-    this.renderer.addClass(link, 'working')
+    this.renderer.addClass(link, 'working');
     //link.classList.add('working');//BAD PRACTICE
   }
 }
