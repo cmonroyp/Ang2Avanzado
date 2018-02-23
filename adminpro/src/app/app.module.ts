@@ -12,6 +12,7 @@ import { RegisterComponent } from './login/register.component';
 
 //rutas Principales
 import { APP_ROUTING } from './app.routing';
+import { SettingsService } from './services/settings.service';
 // import { IncrementadorComponent } from './components/incrementador/incrementador.component';
 
 
@@ -30,7 +31,7 @@ import { APP_ROUTING } from './app.routing';
     FormsModule
 
   ],
-  providers: [],
+  providers: [SettingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

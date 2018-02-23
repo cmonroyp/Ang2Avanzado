@@ -1,5 +1,8 @@
 import { Component, OnInit, Inject, ElementRef, Renderer2,  Input, ViewChild } from '@angular/core';
- //import { DOCUMENT } from '@angular/platform-browser';
+//import { DOCUMENT } from '@angular/platform-browser';
+
+//Service
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -9,21 +12,19 @@ import { Component, OnInit, Inject, ElementRef, Renderer2,  Input, ViewChild } f
 export class AccountSettingsComponent implements OnInit {
 
   @ViewChild('selector') selector:ElementRef;
-  constructor(private renderer: Renderer2
+  constructor(public renderer: Renderer2,
+              public _settingService: SettingsService
      // @Inject(DOCUMENT) private _document
   ) { }
 
   ngOnInit() {
   }
 
-  cambiarColor( tema:string, link:ElementRef ){
+  cambiarColor( tema:string, link:any ){
 
     this.cambiarCheck(link);
-
-    let url = `assets/css/colors/${tema}.css`;
-    //document.getElementById('theme').setAttribute('href',url);//theme es el id en el index.html //BAD PRACTICE
-    this.renderer.setAttribute(document.getElementById('theme'),'href',url);
-
+    this._settingService.aplicarTema(tema);
+  
   }
 
   cambiarCheck( link: ElementRef ){
