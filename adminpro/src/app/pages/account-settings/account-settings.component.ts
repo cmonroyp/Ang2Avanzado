@@ -20,7 +20,7 @@ export class AccountSettingsComponent implements OnInit {
 
     this.cambiarCheck(link);
 
-    let url = `assets/css/colors/${tema}.css`
+    let url = `assets/css/colors/${tema}.css`;
     //document.getElementById('theme').setAttribute('href',url);//theme es el id en el index.html //BAD PRACTICE
     this.renderer.setAttribute(document.getElementById('theme'),'href',url);
 
