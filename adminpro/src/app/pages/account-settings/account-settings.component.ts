@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ElementRef, Renderer2,  Input, ViewChild } from '@angular/core';
- import { DOCUMENT } from '@angular/platform-browser';
+ //import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-account-settings',
@@ -10,7 +10,7 @@ export class AccountSettingsComponent implements OnInit {
 
   @ViewChild('selector') selector:ElementRef;
   constructor(private renderer: Renderer2
-      @Inject(DOCUMENT) private _document
+     // @Inject(DOCUMENT) private _document
   ) { }
 
   ngOnInit() {
