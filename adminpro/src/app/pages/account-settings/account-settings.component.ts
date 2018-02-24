@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, ElementRef, Renderer2,  Input, ViewChild } f
 //import { DOCUMENT } from '@angular/platform-browser';
 
 //Service
-import { SettingsService } from '../../services/settings.service';
+import { SettingsService } from '../../services/service.index';
 
 @Component({
   selector: 'app-account-settings',
@@ -18,6 +18,7 @@ export class AccountSettingsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.colocarCheck();
   }
 
   cambiarColor( tema:string, link:any ){
@@ -39,5 +40,18 @@ export class AccountSettingsComponent implements OnInit {
     //se agrega el check al nuevo tema seleccionado
     this.renderer.addClass(link, 'working');
     //link.classList.add('working');//BAD PRACTICE
+  }
+
+  //para cuando se recargue la pagina saber donde poner el check
+  colocarCheck(){
+
+    let selectores:any = document.getElementsByClassName('selector');
+    let tema = this._settingService.ajustes.tema;
+    for (let ref of selectores) {
+      if(ref.getAttribute('data-theme') === tema){
+          ref.classList.add('working');
+          break;
+      }
+    }
   }
 }

@@ -12,8 +12,9 @@ import { RegisterComponent } from './login/register.component';
 
 //rutas Principales
 import { APP_ROUTING } from './app.routing';
-import { SettingsService } from './services/settings.service';
-// import { IncrementadorComponent } from './components/incrementador/incrementador.component';
+//Servicios
+import { ServicesModule } from './services/services.module';
+
 
 
 @NgModule({
@@ -22,16 +23,16 @@ import { SettingsService } from './services/settings.service';
     LoginComponent,
     RegisterComponent,
 
-    // IncrementadorComponent
   ],
   imports: [
     BrowserModule,
     APP_ROUTING,
     PagesModule,
-    FormsModule
+    FormsModule,
+    ServicesModule
 
   ],
-  providers: [SettingsService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
