@@ -1,0 +1,1 @@
+module.exports.SEED = '@Firma-de-la-Aplicacion-@Adminpro';

@@ -10,8 +10,11 @@
     "author": "cmonroyp",
     "license": "ISC",
     "dependencies": {
+        "bcrypt-nodejs": "0.0.3",
         "express": "^4.16.2",
-        "mongoose": "^5.0.7"
+        "jsonwebtoken": "^8.2.0",
+        "mongoose": "^5.0.7",
+        "mongoose-unique-validator": "^2.0.0"
     },
     "devDependencies": {
         "nodemon": "^1.17.1"
