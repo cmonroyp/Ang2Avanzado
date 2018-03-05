@@ -7,28 +7,64 @@ var Usuario = require('../models/usuario');
 // =========================================================
 function getUsuarios(req, res) {
 
+    let desde = req.params.desde || 0; //en caso que no venga la pagina muestra la primera.
+    desde = Number(desde);
+    let limitPage = 4; //registros que se mostrara por pagina.
+
     Usuario.find({}, 'nombre email img role').sort('nombre')
+        .paginate(desde, limitPage, (err, findUsuarios, count_usuarios) => {
 
-    .exec((err, findUsuarios) => {
+            if (err) {
+                return res.status(500).send({
+                    ok: false,
+                    message: 'Error en la Peticion con el Servidor!.',
+                    errors: err
+                });
+            }
 
-        if (err) {
-            return res.status(500).send({
-                ok: false,
-                message: 'Error en la Peticion con el Servidor!.',
-                errors: err
-            });
-        }
+            if (!findUsuarios) {
+                res.status(404).send({ message: 'Lista de Usuarios no Encontrada!.' });
+            } else {
+                res.status(200).send({
+                    ok: true,
+                    usuarios: findUsuarios,
+                    usuariotoken: req.user, //decodificado en el middleware.
+                    total: count_usuarios
+                })
+            }
+        });
 
-        if (!findUsuarios) {
-            res.status(404).send({ message: 'Lista de Usuarios no Encontrada!.' });
-        } else {
-            res.status(200).send({
-                ok: true,
-                usuarios: findUsuarios,
-                usuariotoken: req.user //decodificado en el middleware.
-            })
-        }
-    });
+    // =========================================================
+    // Otra forma de trabajar paginado
+    // =========================================================
+    // Usuario.find({}, 'nombre email img role').sort('nombre')
+    //     .skip(desde)
+    //     .limit(5)
+    //     .exec((err, findUsuarios) => {
+
+    //         if (err) {
+    //             return res.status(500).send({
+    //                 ok: false,
+    //                 message: 'Error en la Peticion con el Servidor!.',
+    //                 errors: err
+    //             });
+    //         }
+
+    //         if (!findUsuarios) {
+    //             res.status(404).send({ message: 'Lista de Usuarios no Encontrada!.' });
+    //         } else {
+
+    //             Usuario.count({}, (err, conteo) => {
+
+    //                 res.status(200).send({
+    //                     ok: true,
+    //                     usuarios: findUsuarios,
+    //                     usuariotoken: req.user, //decodificado en el middleware.
+    //                     total: conteo
+    //                 });
+    //             });
+    //         }
+    //     });
 }
 
 
@@ -36,16 +72,16 @@ function getUsuarios(req, res) {
 //  Funcion para crear un nuevo usuario
 // =========================================================
 function crearUsuario(req, res) {
-    let usuario = new Usuario();
     let params = req.body;
 
-    usuario.nombre = params.nombre;
-    usuario.email = params.email;
-    usuario.password = params.password;
-    usuario.img = params.img;
-    usuario.role = params.role;
+    let usuario = new Usuario({
+        nombre: params.nombre,
+        email: params.email,
+        password: params.password,
+        img: params.img,
+        role: params.role
+    });
 
-    console.log(usuario);
     if (params.password) {
 
         bcrypt.hash(usuario.password, null, null, (err, hash) => {
