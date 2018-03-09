@@ -4,6 +4,8 @@ var jwt = require('jsonwebtoken');
 var semilla = require('../config/config').SEED;
 
 
+
+
 //el parametro alumno es el que se envia desde el metodo de loginAlumno del controlador.
 exports.createToken = (usuario) => {
 

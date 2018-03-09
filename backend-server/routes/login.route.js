@@ -7,5 +7,6 @@ var api = express.Router();
 
 
 api.post('/login', LoginController.loginUsuario);
+api.post('/google', LoginController.autenticacionGoogle);
 
 module.exports = api;

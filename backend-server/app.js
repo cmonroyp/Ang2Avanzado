@@ -33,6 +33,7 @@ var hospitalRoutes = require('./routes/hospital.route');
 var medicoRoutes = require('./routes/medico.route');
 var busquedaRoutes = require('./routes/busqueda.route');
 var uploadRoutes = require('./routes/upload.route');
+var imagenesRoutes = require('./routes/imagenes.route');
 
 //Conexion base de datos 
 mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) => {
@@ -43,6 +44,11 @@ mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) =
     }
 });
 
+//Server index muestra las imagenes indexadas desde la web de la carpeta upload.
+// var serveIndex = require('serve-index');
+// app.use(express.static(__dirname + '/'))
+// app.use('/uploads', serveIndex(__dirname + '/uploads'));
+
 
 //rutas 
 app.use('/api', appRoutes);
@@ -52,6 +58,7 @@ app.use('/api', hospitalRoutes);
 app.use('/api', medicoRoutes);
 app.use('/api', busquedaRoutes);
 app.use('/api', uploadRoutes);
+app.use('/api', imagenesRoutes);
 
 
 //Escuchar peticiones
