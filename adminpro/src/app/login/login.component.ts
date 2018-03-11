@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 //llamar inicializaciones que estan fuera de angular como jquery
 declare function init_pluings();
 
-//Servicio //
+//Servicio
 import { UsuarioService } from '../services/service.index';
 //model
 import { Usuario } from '../models/usuario.model';
