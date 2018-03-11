@@ -12,6 +12,7 @@ const GOOGLE_SECRET = require('../config/config').GOOGLE_SECRET;
 
 const { OAuth2Client } = require('google-auth-library');
 
+
 function autenticacionGoogle(req, res, next) {
 
     var token = req.body.token;
@@ -57,7 +58,7 @@ function autenticacionGoogle(req, res, next) {
                         ok: true,
                         usuario: usuario,
                         token: token,
-                        id: usuario._id,
+                        //id: usuario._id,
                         //menu: obtenerMenu(usuario.role)
                     });
 
