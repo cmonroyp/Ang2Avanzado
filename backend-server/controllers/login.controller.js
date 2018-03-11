@@ -104,68 +104,10 @@ function autenticacionGoogle(req, res, next) {
 
 }
 
-// function autenticacionGoogle(req, res, next) {
-
-//     var token = req.body.token;
-
-//     const oAuth2Client = new OAuth2Client(
-//         GOOGLE_CLIENT_ID,
-//         GOOGLE_SECRET
-//     );
-//     const tiket = oAuth2Client.verifyIdToken({
-//         idToken: token
-//     });
-
-//     Usuario.findOne({ email: payload.email }, (err, usuario) => {
-
-//                 if (err) {
-//                     return res.status(500).json({
-//                         ok: true,
-//                         mensaje: 'Error al buscar usuario - login',
-//                         errors: err
-//                     });
-//                 }
-
-//                 if (usuario) {
-
-//                     if (usuario.google === false) {
-//                         return res.status(400).json({
-//                             ok: true,
-//                             mensaje: 'Debe de usar su autenticación normal'
-//                         });
-
-//                     } else {
-
-//                         usuario.password = ':)';
-
-//                         var token = jwt.createToken(usuario);
-//                         //jwt.sign({ usuario: usuario }, SEED, { expiresIn: 14400 }); // 4 horas
-
-//                         res.status(200).json({
-//                             ok: true,
-//                             usuario: usuario,
-//                             token: token,
-//                             id: usuario._id,
-//                             menu: obtenerMenu(usuario.role)
-//                         });
-
-//                     }
-
-
-//             tiket.then(data => {
-//                 res.status(200).json({
-//                     ok: true,
-//                     tiket: data.payload
-//                 })
-//             });
-
-//         }
-// }
 // =========================================================
 // Logica para Autenticacion en la Aplicacion Normal
 // =========================================================
 function loginUsuario(req, res) {
-
     //let usuario = new Usuario();
     let params = req.body;
 
@@ -175,22 +117,40 @@ function loginUsuario(req, res) {
     Usuario.findOne({ email: email.toLowerCase() }, (err, findUsuario) => {
 
         if (err) {
-            return res.status(500).send({ message: 'Error con el Servidor al buscar Usuario', err });
+            return res.status(500).send({
+                ok: false,
+                mensaje: 'Error con el servidor al buscar usuario!.',
+                errors: err
+            });
         }
 
         if (!findUsuario) {
-            res.status(400).send({ message: 'Credenciales invalidas!.' });
+            console.log('Error API Autenticacion')
+            return res.status(400).send({
+                ok: false,
+                mensaje: 'Credenciales incorrectas',
+                errors: err
+            });
         } else {
             //Comparo el password enviado, con el del usuario encontrado
             bcrypt.compare(password, findUsuario.password, (err, check) => {
 
-                if (check) {
-                    //se genera un Token
-                    res.status(200).send({
+                if (!check) {
+                    return res.status(400).send({
+                        ok: false,
+                        mensaje: 'Credenciales incorrectas',
+                        errors: err
+                    });
+                }
+
+                //se genera un Token
+                res.status(200).send({
                         ok: true,
+                        usuario: findUsuario,
                         token: jwt.createToken(findUsuario),
                     })
-                }
+                    //id: usuarioDB._id,
+                    // menu: obtenerMenu(usuarioDB.role)
             })
         }
     })

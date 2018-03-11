@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
 
 //modules 
 import { PagesModule } from './pages/pages.module';
@@ -29,6 +29,7 @@ import { ServicesModule } from './services/services.module';
     APP_ROUTING,
     PagesModule,
     FormsModule,
+    ReactiveFormsModule,
     ServicesModule
 
   ],
