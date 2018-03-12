@@ -22,6 +22,7 @@ import { ServicesModule } from './services/services.module';
     AppComponent,
     LoginComponent,
     RegisterComponent,
+  
 
   ],
   imports: [

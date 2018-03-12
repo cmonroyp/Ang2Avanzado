@@ -9,7 +9,8 @@ var ImagenesController = require('../controllers/imagenes.controller');
 
 var api = express.Router();
 
-api.get('/imagen/:tipo/:img', md_auth.ensureAuth, ImagenesController.showImages);
+api.get('/imagen/:tipo/:img', ImagenesController.showImages);
+//api.get('/imagen/:tipo/:img', md_auth.ensureAuth, ImagenesController.showImages);
 
 
 module.exports = api;

@@ -8,12 +8,14 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 //permite trabajar con routerLink
 import { RouterModule } from '@angular/router';
+//modulo pipes
+import { PipeModule } from '../pipes/pipe.module';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    
+    PipeModule
   ],
   declarations: [
     NopagefoundComponent,

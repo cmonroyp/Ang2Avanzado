@@ -11,6 +11,8 @@ import { Graficas1Component } from './graficas1/graficas1.component';
 
 //modules Shared
 import { SharedModule } from '../shared/shared.module';
+//pipes modulo
+import { PipeModule } from '../pipes/pipe.module';
 
 //Rutas hijas 
 import { PAGES_ROUTING } from './pages.routing';
@@ -31,7 +33,8 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     SharedModule,
     PAGES_ROUTING,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    PipeModule
   ],
   declarations: [
     PagesComponent,//Componente principal padre
