@@ -14,7 +14,7 @@ api.use(fileUpload({
     //limits: { fileSize: 50 * 1024 * 1024 },
 }));
 
-api.post('/upload/:tipo/:id', [md_auth.ensureAuth], UploadController.uploadFiles);
-
+//api.post('/upload/:tipo/:id', [md_auth.ensureAuth], UploadController.uploadFiles);
+api.post('/upload/:tipo/:id', UploadController.uploadFiles);
 
 module.exports = api;

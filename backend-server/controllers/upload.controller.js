@@ -65,7 +65,7 @@ function uploadFiles(req, res) {
 
         }
 
-        subirPorTipo(tipo, id, path, res);
+        subirPorTipo(tipo, id, path, nombreArchivo, res);
 
         // res.status(200).json({
         //     ok: true,
@@ -75,7 +75,7 @@ function uploadFiles(req, res) {
     });
 }
 
-function subirPorTipo(tipo, id, path, res) {
+function subirPorTipo(tipo, id, path, nombreArchivo, res) {
 
     var tipoColeccion;
 
@@ -112,11 +112,10 @@ function subirPorTipo(tipo, id, path, res) {
                     fs.unlink(pathViejo);
                 }
 
-                resultado.img = path;
+                resultado.img = nombreArchivo;
                 resultado.save((err, resultadoActualizado) => {
                     res.status(200).json({
                         ok: true,
-                        pathviejo: resultado.img,
                         [tipo]: resultadoActualizado,
                         mensaje: 'Imagen de ' + tipo + ' actualizada'
                     });

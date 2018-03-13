@@ -6,6 +6,9 @@ import { map } from 'rxjs/operators';
 import { Usuario } from '../../models/usuario.model';
 //Url 
 import { AppSettings } from '../../config/config.api';
+//Servicio de imagenes
+import { SubirArchivoService } from '../subir-archivos/subir-archivo.service';
+
 
 interface ItemsResponse {
   results: string[];
@@ -17,10 +20,12 @@ export class UsuarioService {
   url:string;
 
   usuario: Usuario;
-  token: String;
+  token;
 
   constructor(public http: HttpClient,
-              public route: Router) { 
+              public route: Router,
+              public _subirArchivoService:SubirArchivoService) { 
+
     this.url = AppSettings.API_ENDPOIND;
     //carga lo que haya en el storage.
     this.cargarStorage();
@@ -122,4 +127,37 @@ export class UsuarioService {
                 
               )
   }
+
+  actualizarUsuario(usuario:Usuario, token:string){
+
+    let body = JSON.stringify(usuario);
+    let headers = new HttpHeaders({'Content-Type':'application/json',
+                                    'Authorization': token });
+
+    return this.http.put(`${this.url}updateUsuario/${usuario._id}`,body, {headers})
+               .pipe(
+                 map((resp:any)=>{
+                  this.guardarStorage( this.token, resp.usuario );
+                  swal("Usuario Actualizado!","", "success");
+                  return true;
+                 })
+               )
+  }
+
+  cambiarImagen( archivo: File, id: string ) {
+
+    this._subirArchivoService.subirArchivo( archivo, 'usuarios', id )
+          .then( (resp: any) => {
+           
+            this.usuario.img = resp.usuarios.img; 
+            swal( 'Imagen Actualizada', this.usuario.nombre, 'success' );
+            // this.guardarStorage( id, this.token, this.usuario, this.menu );
+            this.guardarStorage( this.token, this.usuario );
+          })
+          .catch( resp => {
+            console.log( resp );
+          }) ;
+
+  }
+
 }
