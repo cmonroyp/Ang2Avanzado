@@ -1,2 +1,0 @@
-http://expressjs.com/es/
-http://mongoosejs.com/docs/index.html

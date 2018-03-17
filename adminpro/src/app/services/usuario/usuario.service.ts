@@ -1,7 +1,8 @@
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { map} from 'rxjs/operators';
 //Model
 import { Usuario } from '../../models/usuario.model';
 //Url 
@@ -158,6 +159,65 @@ export class UsuarioService {
             console.log( resp );
           }) ;
 
+  }
+
+  cargarUsuarios( desde:number ){
+ 
+    let headers = new HttpHeaders({'Content-Type':'application/json',
+                                  'Authorization': this.token })
+
+    // return this.http.get(`${this.url}getUsuarios/${desde}`, {headers,observe: 'events', reportProgress: true})
+    return this.http.get(`${this.url}getUsuarios/${desde}`,{headers})
+              .pipe(
+                map((event)=>{
+                  // if (event.type === HttpEventType.DownloadProgress) {
+                  //   console.log('downloaded bytes',event.loaded); //downloaded bytes
+                  //   console.log('total bytes to download',event.total); //total bytes to download
+                  // }
+                  // if (event.type === HttpEventType.UploadProgress) {
+                  //   console.log('uploaded bytes',event.loaded); //uploaded bytes
+                  //   console.log('total bytes to upload',event.total); //total bytes to upload
+                  // }
+                  // if (event.type === HttpEventType.Response) {
+                  //   console.log('response',event.body);
+                  //   return event.body
+                  // }
+                  // if (event.type === HttpEventType.ResponseHeader) {
+                  //   console.log('ResponseHeader',event);
+             
+                  // }
+
+                  return event;
+                })
+              )
+  }
+
+  inputBuscarUsuarios( termino: string ){
+
+    let headers = new HttpHeaders({'Content-Type':'application/json',
+                                  'Authorization': this.token })
+
+    return this.http.get(`${this.url}/coleccion/usuarios/${termino}`, {headers})
+               .pipe(
+                 map((resp:any)=>{
+                   return resp.usuarios;
+                 })
+               )
+  }
+
+  borrarUsuario( usuario_id: string ):Observable<any>{  
+    
+    let headers = new HttpHeaders({'Content-Type':'application/json',
+                                  'Authorization': this.token })
+      return this.http.delete(`${this.url}deleteUsuario/${usuario_id}`, {headers})
+                 .pipe(
+                   map((resp)=>{
+                    swal(`Poof! El usuario ha sido eliminado correctamente!.`, {
+                      icon: "success",
+                    });
+                     return resp;
+                   })
+                 )
   }
 
 }

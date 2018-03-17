@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+//cargar todos los complementos jquery fuera de angular
 declare function init_pluings();
 
 @Component({

@@ -9,38 +9,10 @@ function getUsuarios(req, res) {
 
     let desde = req.params.desde || 0; //en caso que no venga la pagina muestra la primera.
     desde = Number(desde);
-    let limitPage = 4; //registros que se mostrara por pagina.
+    let limitPage = 5; //registros que se mostrara por pagina.
 
-    Usuario.find({}, 'nombre email img role').sort('nombre')
-        .paginate(desde, limitPage, (err, findUsuarios, count_usuarios) => {
-
-            if (err) {
-                return res.status(500).send({
-                    ok: false,
-                    message: 'Error en la Peticion con el Servidor!.',
-                    errors: err
-                });
-            }
-
-            if (!findUsuarios) {
-                res.status(404).send({ message: 'Lista de Usuarios no Encontrada!.' });
-            } else {
-                res.status(200).send({
-                    ok: true,
-                    usuarios: findUsuarios,
-                    usuariotoken: req.user, //decodificado en el middleware.
-                    total: count_usuarios
-                })
-            }
-        });
-
-    // =========================================================
-    // Otra forma de trabajar paginado
-    // =========================================================
-    // Usuario.find({}, 'nombre email img role').sort('nombre')
-    //     .skip(desde)
-    //     .limit(5)
-    //     .exec((err, findUsuarios) => {
+    // Usuario.find({}, 'nombre email img role google').sort('nombre')
+    //     .paginate(desde, limitPage, (err, findUsuarios, count_usuarios) => {
 
     //         if (err) {
     //             return res.status(500).send({
@@ -53,18 +25,46 @@ function getUsuarios(req, res) {
     //         if (!findUsuarios) {
     //             res.status(404).send({ message: 'Lista de Usuarios no Encontrada!.' });
     //         } else {
-
-    //             Usuario.count({}, (err, conteo) => {
-
-    //                 res.status(200).send({
-    //                     ok: true,
-    //                     usuarios: findUsuarios,
-    //                     usuariotoken: req.user, //decodificado en el middleware.
-    //                     total: conteo
-    //                 });
-    //             });
+    //             res.status(200).send({
+    //                 ok: true,
+    //                 usuarios: findUsuarios,
+    //                 usuariotoken: req.user, //decodificado en el middleware.
+    //                 total: count_usuarios
+    //             })
     //         }
     //     });
+
+    // =========================================================
+    // Otra forma de trabajar paginado
+    // =========================================================
+    Usuario.find({}, 'nombre email img role google').sort('nombre')
+        .skip(desde)
+        .limit(5)
+        .exec((err, findUsuarios) => {
+
+            if (err) {
+                return res.status(500).send({
+                    ok: false,
+                    message: 'Error en la Peticion con el Servidor!.',
+                    errors: err
+                });
+            }
+
+            if (!findUsuarios) {
+                res.status(404).send({ message: 'Lista de Usuarios no Encontrada!.' });
+            } else {
+
+                Usuario.count({}, (err, conteo) => {
+
+                    res.status(200).send({
+                        ok: true,
+                        usuarios: findUsuarios,
+                        usuariotoken: req.user, //decodificado en el middleware.
+                        total: conteo
+                    });
+                });
+            }
+        });
 }
 
 
