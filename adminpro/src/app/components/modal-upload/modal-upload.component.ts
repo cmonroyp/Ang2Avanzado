@@ -18,7 +18,7 @@ export class ModalUploadComponent implements OnInit {
 
   public tipo: string;
   public id: string;
- 
+
   @Output() notificacion:EventEmitter<void> = new EventEmitter<void>();
 
   constructor(public _subirArchivoService: SubirArchivoService) { }
@@ -60,8 +60,6 @@ export class ModalUploadComponent implements OnInit {
         .catch((err)=>{
           this.notificacion.emit(err);
           console.log('Error en la actualizacion de la imagen', err);
-        })
-  
+        });  
     }
-
 }
