@@ -34,41 +34,53 @@
     </div>
 </div>
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Imagen</th>
-            <th>Correo</th>
-            <th>Nombre</th>
-            <th>Rol</th>
-            <th>Auth</th>
-            <th></th>
-        </tr>
-    </thead>
+<div>
 
-    <tbody>
-        <tr *ngFor="let user of usuarios">
-            <td class="w70">
-                <img [src]="user.img | imagen" alt="user" class="profile-pic img-48 img-circle" />
-            </td>
-            <td>{{user.email}}</td>
-            <td>{{user.nombre}}</td>
-            <td>{{user.role}}</td>
-            <td>
-                <label *ngIf="user.google" class="label label-danger">Google</label>
-                <label *ngIf="!user.google" class="label label-info">Normal</label>
-            </td>
-            <td>
-                <button class="btn btn-primary">
-                  <i class="fa fa-save"></i>
-                </button>
-                <button class="btn btn-danger" (click)="borraUsuario(user)">
-                    <i class="fa fa-trash-o"></i>
-                  </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Imagen</th>
+                <th>Correo</th>
+                <th>Nombre</th>
+                <th>Rol</th>
+                <th>Auth</th>
+                <th></th>
+            </tr>
+        </thead>
 
-<button class="btn btn-secondary" (click)="cambiarPagina(-5)">Anteriores</button>
-<button class="btn btn-secondary" (click)="cambiarPagina(5)">Siguientes</button>
+        <tbody>
+            <tr *ngFor="let user of usuarios">
+                <td class="w70">
+                    <img (click)="imagenSubir(user._id)" [src]="user.img | imagen" alt="user" class="profile-pic img-48 img-circle pointer" data-toggle="modal" data-target="#exampleModalLong" />
+                </td>
+                <td>{{user.email}}</td>
+                <td>{{user.nombre}}</td>
+                <td>
+                    <select name="role" [(ngModel)]="user.role" class="form-control">
+                        <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+                        <option value="USER_ROLE">USER_ROLE</option>
+                    </select>
+                </td>
+                <td>
+                    <label *ngIf="user.google" class="label label-danger">Google</label>
+                    <label *ngIf="!user.google" class="label label-info">Normal</label>
+                </td>
+                <td>
+                    <button class="btn btn-primary" (click)="actualizarUsuario(user)">
+                      <i class="fa fa-save"></i>
+                    </button>
+                    <button class="btn btn-danger" (click)="borraUsuario(user)">
+                        <i class="fa fa-trash-o"></i>
+                      </button>
+                </td>
+
+                <!-- Modal Upload -->
+                <app-modal-upload (notificacion)="notification($event)"></app-modal-upload>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <button class="btn btn-secondary" (click)="cambiarPagina(-5)">Anteriores</button>
+    <button class="btn btn-secondary" (click)="cambiarPagina(5)">Siguientes</button>
+</div>

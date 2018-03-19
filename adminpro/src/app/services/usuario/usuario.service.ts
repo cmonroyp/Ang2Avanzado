@@ -138,7 +138,10 @@ export class UsuarioService {
     return this.http.put(`${this.url}updateUsuario/${usuario._id}`,body, {headers})
                .pipe(
                  map((resp:any)=>{
-                  this.guardarStorage( this.token, resp.usuario );
+                   
+                   if(usuario._id === this.usuario._id){
+                     this.guardarStorage( this.token, resp.usuario );
+                   }
                   swal("Usuario Actualizado!","", "success");
                   return true;
                  })
