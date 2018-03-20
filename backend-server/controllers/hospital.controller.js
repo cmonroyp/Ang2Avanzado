@@ -6,39 +6,40 @@ var Hospital = require('../models/hospital');
 // =========================================================
 function getHospitales(req, res) {
 
-    let desde = req.params.desde || 0; //en caso que no venga la pagina muestra la primera.
+    var desde = req.params.desde || 0;
     desde = Number(desde);
-    let limitPage = 4; //registros que se mostrara por pagina.
 
     Hospital.find({})
+        .skip(desde)
+        .limit(5)
         .populate('usuario', 'nombre email')
-        .paginate(desde, limitPage, (err, findHospital, count_hospitales) => {
+        .exec(
+            (err, hospitales) => {
 
-            if (err) {
-                return res.status(500).send({
-                    ok: false,
-                    message: 'Error en la peticion de busqueda con el Servidor!.',
-                    errors: err
-                });
-            }
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando hospital',
+                        errors: err
+                    });
+                }
 
-            if (!findHospital) {
-                res.status(404).send({ message: 'Hospitales no encontrados!.' });
-            } else {
-                res.status(200).send({
-                    ok: true,
-                    message: findHospital,
-                    total: count_hospitales
-                });
-            }
-        });
+                Hospital.count({}, (err, conteo) => {
+
+                    res.status(200).json({
+                        ok: true,
+                        hospitales: hospitales,
+                        total: conteo
+                    });
+                })
+
+            });
 }
 
 // =========================================================
 // funcion para crear un hospital
 // =========================================================
 function crearHospital(req, res) {
-
 
     let params = req.body;
 
@@ -66,7 +67,7 @@ function crearHospital(req, res) {
         } else {
             res.status(201).send({
                 ok: true,
-                usuario: save_hospital
+                hospital: save_hospital
             });
         }
     });

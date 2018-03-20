@@ -7,9 +7,9 @@ import { SettingsService,
          SharedService,
          SidebarService,
          UsuarioService,
+         HospitalService,
          LoginGuard,
         SubirArchivoService } from '../services/service.index';
-// import { ModalUploadService } from '../components/modal-upload/modal-upload.service';
 
 @NgModule({
   imports: [
@@ -22,9 +22,9 @@ import { SettingsService,
     SharedService,
     SidebarService,
     UsuarioService,
+    HospitalService,
     LoginGuard,
     SubirArchivoService,
-    // ModalUploadService
   ],
 })
 export class ServicesModule { }

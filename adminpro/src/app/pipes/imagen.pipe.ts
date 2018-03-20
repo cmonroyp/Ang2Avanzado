@@ -7,10 +7,10 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class ImagenPipe implements PipeTransform {
 
-  transform(img: string, tipo: string = 'usuario'): any {
-
+  transform(img: string, tipo: string = 'hospital'): any {
+   // 'usuario'
     let url = AppSettings.API_ENDPOIND;
-    
+ 
     if(!img){
       //retorna la imagen por defecto del servicio api, en caso de no venir imagen.
       return url + 'imagen/usuarios/xxx';
