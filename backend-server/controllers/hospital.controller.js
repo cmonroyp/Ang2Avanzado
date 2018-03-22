@@ -40,7 +40,7 @@ function getHospitales(req, res) {
 // funcion para crear un hospital
 // =========================================================
 function crearHospital(req, res) {
-
+    
     let params = req.body;
 
     let hospital = new Hospital({

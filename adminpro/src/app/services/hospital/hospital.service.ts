@@ -13,13 +13,16 @@ export class HospitalService {
 
   token: string;
   hospital: Hospital;
-  url: string;
+  public url: string;
 
   constructor(public http: HttpClient,
               public _usuarioService: UsuarioService) {
 
+                // // this.token = this._usuarioService.token;
                 this.url = AppSettings.API_ENDPOIND;
-                this.token = this._usuarioService.token;
+                this.token = localStorage.getItem('token');
+                console.log('token servicio', this.token)
+
                }
 
 
@@ -62,31 +65,23 @@ export class HospitalService {
                 )
   }
 
-  // crearHospital( hospital: string ){
+  crearHospital( hospital_nombre: string ){
 
-  //   //  let body = JSON.parse(hospital);
-  //   let headers = new HttpHeaders({'Content-Type':'application/json',
-  //                                 })
+    // let body = JSON.stringify(hospital);
+    let headers = new HttpHeaders({'Content-Type':'application/json',
+                                  'Authorization': this.token })
 
-  //  return this.http.post(`${this.url}addhospital/`, hospital, {headers})
-  //             .pipe(
-  //               map((res:any)=>{
-  //                 swal('Usuario Creado', res.nombre ,'success');
-  //                 return  res.hospital;
-  //               }),
+   return this.http.post(`${this.url}crear-hospital`,{'nombre': hospital_nombre }, { headers })
+              .pipe(
+                map((res:any)=>{
+                  swal('Hospital Creado', res.hospital.nombre ,'success');
+                  return  true;
+                }),
                 
-  //             )
-  // }
-
-  crearHospital( nombre: string ) {
-
-    let url = this.url + 'crear-hospital';
-    url += '?token=' + this._usuarioService.token;
-
-    return this.http.post( url, { nombre } )
-              // .map( (resp: any) => resp.hospital );
-
+              )
   }
+
+
 
   inputBuscarHospitales( termino: string ){
 
