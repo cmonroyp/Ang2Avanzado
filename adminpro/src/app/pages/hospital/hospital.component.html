@@ -4,7 +4,7 @@
             <div class="card-body">
 
                 <!-- <input #input type="text" class="form-control" placeholder="Buscar Usuario..." (keyup.enter)="buscarUsuario( input.value )" (blur)="buscarUsuario( input.value )"> -->
-                <input #input type="text" class="form-control" placeholder="Buscar Usuario..." (keyup)="buscarHospital( input.value )">
+                <input #input type="text" class="form-control" placeholder="Buscar Hospital..." (keyup)="buscarHospital( input.value )">
             </div>
         </div>
     </div>
@@ -61,7 +61,7 @@
                     <tbody>
                         <tr *ngFor="let hospital of hospitales">
                             <td class="w70">
-                                <img (click)="imagenSubir(hospital._id)" [src]="hospital.img | imagen" alt="hospital" class="profile-pic img-48 img-circle pointer" data-toggle="modal" data-target="#exampleModalLong" />
+                                <img (click)="imagenSubir(hospital._id)" [src]="hospital.img | imagen: 'hospital'" alt="hospital" class="profile-pic img-48 img-circle pointer" data-toggle="modal" data-target="#exampleModalLong" />
                             </td>
                             <!-- <td>{{hospital.nombre}}</td> -->
                             <td>

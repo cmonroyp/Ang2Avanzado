@@ -11,10 +11,6 @@ import { AppSettings } from '../../config/config.api';
 import { SubirArchivoService } from '../subir-archivos/subir-archivo.service';
 
 
-interface ItemsResponse {
-  results: string[];
-}
-
 @Injectable()
 export class UsuarioService {
 

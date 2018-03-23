@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 //servicio
 import { HospitalService, UsuarioService } from '../../services/service.index';
 //model
 import { Hospital } from '../../models/hospital.model';
+//Modal imagen
+import { ModalUploadComponent } from '../../components/modal-upload/modal-upload.component';
 
  declare var swal: any;
 
@@ -19,6 +21,9 @@ export class HospitalComponent implements OnInit {
 
   cargando: boolean = true;
   hospitalName:string;
+  //modal subir imagen
+  @ViewChild(ModalUploadComponent) infoModal: ModalUploadComponent;
+  
   constructor(public _hospitalService: HospitalService ) { }
 
   ngOnInit() {
@@ -64,10 +69,6 @@ export class HospitalComponent implements OnInit {
 
   }
 
-  imagenSubir(){
-
-  }
-
   actualizarHospital(hospital: Hospital){
 
     this._hospitalService.actualizarHospital(hospital)
@@ -106,8 +107,18 @@ export class HospitalComponent implements OnInit {
     });
   }
 
-  notification(){
+  imagenSubir(hospital_id: any){
 
+    this.infoModal.id =  hospital_id;
+    this.infoModal.tipo = 'hospitales'
+    // console.log(imagen)
+  }
+
+  notification(info){
+    if(info.ok){
+      this.cargarHospitales();
+      console.log('Respuesta del hijo',info.ok);
+    }
   }
 
 }

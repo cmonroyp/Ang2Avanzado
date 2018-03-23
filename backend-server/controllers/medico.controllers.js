@@ -8,34 +8,35 @@ var mongoosePaginate = require('mongoose-pagination');
 // =========================================================
 function getMedicos(req, res) {
 
-    let desde = req.params.desde || 0; //en caso que no venga la pagina muestra la primera.
-    desde = Number(desde); //hardcodea la variable para que se numeral
-    let limitPage = 4; //registros que se mostrara por pagina.
+    var desde = req.query.desde || 0;
+    desde = Number(desde);
 
-    Medico.find({}).sort('nombre')
+    Medico.find({})
+        .skip(desde)
+        .limit(5)
         .populate('usuario', 'nombre email')
         .populate('hospital')
-        .paginate(desde, limitPage, (err, findMedicos, count_medicos) => {
+        .exec(
+            (err, medicos) => {
 
-            if (err) {
-                return res.status(500).send({
-                    ok: false,
-                    message: 'Error en la peticion de busqueda con el Servidor!.',
-                    errors: err
-                });
-            }
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando medico',
+                        errors: err
+                    });
+                }
 
-            if (!findMedicos) {
-                res.status(404).send({ message: 'Medicos no encontrados!.' });
-            } else {
-                res.status(200).send({
-                    ok: true,
-                    message: findMedicos,
-                    total: count_medicos
+                Medico.count({}, (err, conteo) => {
+                    res.status(200).json({
+                        ok: true,
+                        medicos: medicos,
+                        total: conteo
+                    });
+
                 })
-            }
 
-        });
+            });
 
     // Medico.find({}, (err, findMedicos) => {
     //     if (err) {

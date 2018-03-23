@@ -67,9 +67,8 @@ export class HospitalService {
 
   crearHospital( hospital_nombre: string ){
 
-    // let body = JSON.stringify(hospital);
     let headers = new HttpHeaders({'Content-Type':'application/json',
-                                  'Authorization': this.token })
+                                   'Authorization': this.token })
 
    return this.http.post(`${this.url}crear-hospital`,{'nombre': hospital_nombre }, { headers })
               .pipe(

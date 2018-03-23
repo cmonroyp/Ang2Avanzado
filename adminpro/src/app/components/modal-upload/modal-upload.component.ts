@@ -55,7 +55,7 @@ export class ModalUploadComponent implements OnInit {
           //cierra modal
            $('#exampleModalLong').modal('hide');
            this.notificacion.emit(resp); 
-           swal("Imagen Actualizada Correctamente",resp.usuarios.nombre, "success");
+           swal("Imagen Actualizada Correctamente","", "success");
         })
         .catch((err)=>{
           this.notificacion.emit(err);

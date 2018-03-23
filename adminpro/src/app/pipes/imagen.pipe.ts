@@ -7,8 +7,8 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class ImagenPipe implements PipeTransform {
 
-  transform(img: string, tipo: string = 'hospital'): any {
-   // 'usuario'
+  transform(img: string, tipo: string = 'usuario'): any {
+
     let url = AppSettings.API_ENDPOIND;
  
     if(!img){
