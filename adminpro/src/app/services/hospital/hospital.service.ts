@@ -38,6 +38,30 @@ export class HospitalService {
               )
   }
 
+  getAllHospitals(){
+ 
+    let headers = new HttpHeaders({'Content-Type':'application/json',
+                                  'Authorization': this.token })
+    return this.http.get(`${this.url}get-hospitales`,{headers})
+              .pipe(
+                map((resp)=>{
+                  return resp;
+                })
+              )
+  }
+
+  buscarHospital_Id( id: string ){
+
+    let headers = new HttpHeaders({'Content-Type':'application/json',
+                                  'Authorization': this.token })
+    return this.http.get(`${this.url}get-hospital/${id}`, { headers })
+               .pipe(
+                 map((resp:any)=>{  
+                   return resp;
+                 })
+               )
+  }
+
   actualizarHospital(hospital: Hospital){
 
     let body = JSON.stringify(hospital);

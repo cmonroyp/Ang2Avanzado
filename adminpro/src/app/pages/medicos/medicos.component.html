@@ -37,7 +37,7 @@
                     <tbody>
                         <tr *ngFor="let medico of medicos">
                             <td class="w70">
-                                <img [src]="medico.img | imagen:'medico'" class="img-50 img-circle">
+                                <img (click)="imagenSubir(medico._id)" [src]="medico.img | imagen:'medico'" class="img-48 img-circle" data-toggle="modal" data-target="#exampleModalLong">
                             </td>
                             <td>
                                 {{ medico.nombre }}
@@ -50,10 +50,12 @@
                               <i class="fa fa-edit"></i>
                             </button>
 
-                                <button (click)="borrarMedico( medico )" class="btn btn-danger">
+                                <button (click)="borrarMedicos( medico._id )" class="btn btn-danger">
                               <i class="fa fa-trash-o"></i>
                             </button>
                             </td>
+                            <!-- Modal Upload -->
+                            <app-modal-upload (notificacion)="notification($event)"></app-modal-upload>
                         </tr>
                     </tbody>
                 </table>

@@ -34,8 +34,8 @@ export class HospitalComponent implements OnInit {
 
     this.cargando = true;
     this._hospitalService.inputBuscarHospitales( termino )
-        .subscribe((usuarios: Hospital[])=>{
-          this.hospitales = usuarios;
+        .subscribe((hospital: Hospital[])=>{
+          this.hospitales = hospital;
           this.cargando = false;
         });
   }

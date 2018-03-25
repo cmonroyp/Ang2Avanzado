@@ -8,12 +8,12 @@ var mongoosePaginate = require('mongoose-pagination');
 // =========================================================
 function getMedicos(req, res) {
 
-    var desde = req.query.desde || 0;
-    desde = Number(desde);
+    // var desde = req.query.desde || 0;
+    // desde = Number(desde);
 
     Medico.find({})
-        .skip(desde)
-        .limit(5)
+        //.skip(desde)
+        //.limit(5)
         .populate('usuario', 'nombre email')
         .populate('hospital')
         .exec(
@@ -56,6 +56,37 @@ function getMedicos(req, res) {
     //         })
     //     }
     // })
+}
+
+// =========================================================
+// buscar medico por id!.
+// =========================================================
+function buscaMedicoId(req, res) {
+    var id = req.params.id;
+
+    Medico.findById(id)
+        .populate('usuario', 'nombre img email')
+        .populate('hospital')
+        .exec((err, medico) => {
+            if (err) {
+                return res.status(500).send({
+                    ok: false,
+                    mensaje: 'Error al buscar hospital',
+                    errors: err
+                });
+            }
+            if (!medico) {
+                return res.status(400).send({
+                    ok: false,
+                    mensaje: 'El medico con el id ' + id + 'no existe',
+                    errors: { message: 'No existe un medico con ese ID' }
+                });
+            }
+            res.status(200).send({
+                ok: true,
+                medico: medico,
+            });
+        })
 }
 
 // =========================================================
@@ -157,5 +188,6 @@ module.exports = {
     getMedicos,
     crearMedico,
     actualizaMedico,
-    eliminaMedico
+    eliminaMedico,
+    buscaMedicoId
 }
