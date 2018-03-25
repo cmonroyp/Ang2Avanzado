@@ -18,7 +18,7 @@ export class UsuarioService {
 
   usuario: Usuario;
   token;
-
+  menu:any = [];
   constructor(public http: HttpClient,
               public route: Router,
               public _subirArchivoService:SubirArchivoService) { 
@@ -35,19 +35,23 @@ export class UsuarioService {
   cargarStorage(){
 
     if( localStorage.getItem('token') ){
+      this.menu = JSON.parse(localStorage.getItem('menu'));
       this.token = localStorage.getItem('token');
       this.usuario = JSON.parse(localStorage.getItem('usuario'));
     }else{
       this.token = '';
       this.usuario = null;
+      this.menu = [];
     }
   } 
 
-  guardarStorage(token:string, usuario:Usuario){
+  guardarStorage(token:string, usuario:Usuario, menu: any){
 
+    localStorage.setItem('menu',JSON.stringify(menu));
     localStorage.setItem('usuario',JSON.stringify(usuario));
     localStorage.setItem('token', token);
 
+    this.menu = menu;
     this.usuario = usuario;
     this.token = token;
   }
@@ -55,8 +59,10 @@ export class UsuarioService {
   removerToken(){
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
+    localStorage.removeItem('menu');
     this.token = '';
     this.usuario = null;
+    this.menu =[];
   }
 
   // =========================================================
@@ -75,7 +81,7 @@ export class UsuarioService {
       return this.http.post(`${this.url}google`, { token })
                  .pipe(
                    map((res:any)=>{
-                      this.guardarStorage(res.token,res.usuario);
+                      this.guardarStorage(res.token,res.usuario, res.menu);
                       return true;
                    })
                  )
@@ -103,7 +109,7 @@ export class UsuarioService {
               .pipe(
                 map((res:any)=>{
                   //swal('Logueado Satisfactoriamente', usuario.email,'success');
-                  this.guardarStorage(res.token,res.usuario);
+                  this.guardarStorage(res.token,res.usuario, res.menu);
                   return  res;
                 }),
                 
@@ -136,7 +142,7 @@ export class UsuarioService {
                  map((resp:any)=>{
                    
                    if(usuario._id === this.usuario._id){
-                     this.guardarStorage( this.token, resp.usuario );
+                     this.guardarStorage( this.token, resp.usuario, this.menu );
                    }
                   swal("Usuario Actualizado!","", "success");
                   return true;
@@ -152,7 +158,7 @@ export class UsuarioService {
             this.usuario.img = resp.usuarios.img; 
             swal( 'Imagen Actualizada', this.usuario.nombre, 'success' );
             // this.guardarStorage( id, this.token, this.usuario, this.menu );
-            this.guardarStorage( this.token, this.usuario );
+            this.guardarStorage( this.token, this.usuario, this.menu );
           })
           .catch( resp => {
             console.log( resp );

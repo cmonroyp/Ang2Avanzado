@@ -12,6 +12,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HospitalComponent } from './hospital/hospital.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 //Guards
 import { LoginGuard } from '../services/service.index';
 
@@ -30,6 +31,7 @@ const PAGES_ROUTES: Routes =[
             {path:'rxjs', component: RxjsComponent, data: {titulo: 'RxJs'}},
             {path:'account-settings', component: AccountSettingsComponent, data: {titulo: 'Ajustes de Tema'}},
             {path:'perfil', component: ProfileComponent, data: {titulo: 'Perfil de Usuario'}},
+            {path:'busqueda/:termino', component: BusquedaComponent, data: {titulo: 'Buscador'}},
             //Mantenimientos
             {path:'usuarios', component: UsuariosComponent, data: {titulo: 'Mantenimiento de Usuarios'}},
             {path:'hospitales', component: HospitalComponent, data: {titulo: 'Mantenimiento de Hospitales'}},

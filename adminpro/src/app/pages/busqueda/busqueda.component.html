@@ -1,0 +1,105 @@
+<div class="row">
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title text-center">Usuarios</h4>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Foto</td>
+                            <td>Nombre</td>
+                            <td>Editar</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let items of usuarios">
+                        <tr>
+                            <td>
+                                <img [src]="items.img | imagen: 'usuario'" class="img-48">
+                            </td>
+                            <td>{{items.nombre}}</td>
+                            <td>
+                                <button class="btn btn-primary" [routerLink]="['/usuarios']">
+                                  <i class="fa fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert alert-info" *ngIf="usuarios.length === 0">
+                    No hay registros!.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title text-center">Medicos</h4>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Foto</td>
+                            <td>Nombre</td>
+                            <td>Editar</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let items of medicos">
+                        <tr>
+                            <td>
+                                <img [src]="items.img | imagen: 'medico'" class="img-48">
+                            </td>
+                            <td>{{items.nombre}}</td>
+                            <td>
+                                <button class="btn btn-primary" [routerLink]="['/medico', items._id]">
+                                  <i class="fa fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert alert-info" *ngIf="medicos.length === 0">
+                    No hay registros!.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title text-center">Hospitales</h4>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Foto</td>
+                            <td>Nombre</td>
+                            <td>Editar</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let items of hospitales">
+                        <tr>
+                            <td>
+                                <img [src]="items.img | imagen: 'hospital'" class="img-48">
+                            </td>
+                            <td>{{items.nombre}}</td>
+                            <td>
+                                <button class="btn btn-primary" [routerLink]="['/hospitales']">
+                                  <i class="fa fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert alert-info" *ngIf="hospitales.length === 0">
+                    No hay registros!.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
