@@ -14,7 +14,7 @@ import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 //Guards
-import { LoginGuard } from '../services/service.index';
+import { LoginGuard, AdminGuard } from '../services/service.index';
 
 
 const PAGES_ROUTES: Routes =[
@@ -33,7 +33,12 @@ const PAGES_ROUTES: Routes =[
             {path:'perfil', component: ProfileComponent, data: {titulo: 'Perfil de Usuario'}},
             {path:'busqueda/:termino', component: BusquedaComponent, data: {titulo: 'Buscador'}},
             //Mantenimientos
-            {path:'usuarios', component: UsuariosComponent, data: {titulo: 'Mantenimiento de Usuarios'}},
+            {
+                path:'usuarios', 
+                component: UsuariosComponent, 
+                canActivate: [AdminGuard],
+                data: {titulo: 'Mantenimiento de Usuarios'}
+            },
             {path:'hospitales', component: HospitalComponent, data: {titulo: 'Mantenimiento de Hospitales'}},
             {path:'medicos', component: MedicosComponent, data: {titulo: 'Mantenimiento de Medicos'}},
             {path:'medico/:id', component: MedicoComponent, data: {titulo: 'Actualizar Medico'}},

@@ -2,14 +2,14 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { map} from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 //Model
 import { Usuario } from '../../models/usuario.model';
 //Url 
 import { AppSettings } from '../../config/config.api';
 //Servicio de imagenes
 import { SubirArchivoService } from '../subir-archivos/subir-archivo.service';
-
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class UsuarioService {
@@ -93,9 +93,6 @@ export class UsuarioService {
   // =========================================================
   login( usuario: Usuario, recordarme:boolean = false){
 
-    // let headers = new HttpHeaders({
-    //   'token': this.token
-    //   });
     if( recordarme ){
       localStorage.setItem('recordarme', usuario.email);
     }else{
@@ -111,8 +108,16 @@ export class UsuarioService {
                   //swal('Logueado Satisfactoriamente', usuario.email,'success');
                   this.guardarStorage(res.token,res.usuario, res.menu);
                   return  res;
-                }),
-                
+                }),               
+                catchError(err => of(
+                  `Error Retornado: ${JSON.stringify(err) }`,
+                  `${swal('Error',err.error.mensaje,'error')}`,
+                ))
+                //  catchError(err => of(`Error Retornado: ${err.error.mensaje}`)),
+                //  catchError(err => of(`Error Retornado: ${err}`)),
+              //   catchError(err => of({
+              //     'Error Retornado': {err}
+              //  }))
               )
   }
 

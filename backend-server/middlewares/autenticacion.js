@@ -2,6 +2,9 @@ var jwt = require('jsonwebtoken');
 
 var semilla = require('../config/config').SEED;
 
+// =========================================================
+// Verifica Token!.
+// =========================================================
 exports.ensureAuth = function(req, res, next) {
 
     if (!req.headers.authorization) {
@@ -24,4 +27,42 @@ exports.ensureAuth = function(req, res, next) {
 
     req.user = payload; //datos del usuario identificado en el token.
     next();
+}
+
+// =========================================================
+// Verifica Role Admin!.
+// =========================================================
+exports.verificaADMIN_ROLE = function(req, res, next) {
+
+    var usuario = req.user.usuario;
+    if (usuario.role === 'ADMIN_ROLE') {
+        next();
+        return;
+    } else {
+        return res.status(401).send({
+            ok: false,
+            message: 'No posee permisos para acceder!.'
+        });
+    }
+}
+
+// ==========================================
+//  Verificar ADMIN o Mismo Usuario
+// ==========================================
+exports.verificaADMIN_o_MismoUsuario = function(req, res, next) {
+
+
+    var usuario = req.user.usuario;
+    var id = req.params.id;
+    if (usuario.role === 'ADMIN_ROLE' || usuario.id === id) {
+        next();
+        return;
+    } else {
+
+        return res.status(401).json({
+            ok: false,
+            mensaje: 'No posee los privilegios para esta accion!.',
+        });
+
+    }
 }
