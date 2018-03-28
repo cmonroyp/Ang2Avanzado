@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 //trabajar los [(ngModel)] 
 import { FormsModule } from '@angular/forms';
 
-import { PagesComponent } from './pages.component';
+// import { PagesComponent } from './pages.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -44,7 +44,7 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
     PipeModule
   ],
   declarations: [
-    PagesComponent,//Componente principal padre
+    // PagesComponent,//Componente principal padre
     DashboardComponent,
     ProgressComponent,
     Graficas1Component,

@@ -11,6 +11,7 @@ import { SettingsService,
          MedicoService,
          LoginGuard,
          AdminGuard,
+         RenuevatokenGuard,
         SubirArchivoService } from '../services/service.index';
 
 @NgModule({
@@ -28,6 +29,7 @@ import { SettingsService,
     MedicoService,
     LoginGuard,
     AdminGuard,
+    RenuevatokenGuard,
     SubirArchivoService,
   ],
 })

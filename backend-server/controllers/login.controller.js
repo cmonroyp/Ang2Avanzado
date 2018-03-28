@@ -187,7 +187,20 @@ function obtenerMenu(ROLE) {
     return menu;
 }
 
+// =========================================================
+// Logica para renovar el Token
+// =========================================================
+
+function renuvaToken(req, res){
+
+    res.status(200).send({
+        ok: true,  
+        token: jwt.createToken(req.user)
+    })
+}
+
 module.exports = {
     loginUsuario,
-    autenticacionGoogle
+    autenticacionGoogle,
+    renuvaToken
 }

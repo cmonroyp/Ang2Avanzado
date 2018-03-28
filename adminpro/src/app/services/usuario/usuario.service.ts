@@ -28,6 +28,25 @@ export class UsuarioService {
     this.cargarStorage();
   }
 
+  renuevaToken(){
+
+    let headers = new HttpHeaders({'Content-Type':'application/json',
+                                    'Authorization': this.token });
+    return this.http.get(`${this.url}renueva-token`, {headers})
+              .pipe(
+                map((resp:any)=>{
+                  this.token = resp.token;
+                  localStorage.setItem('token', this.token);
+                  return true;
+                }),
+                catchError(err => of(                  
+                  `Error Retornado: ${JSON.stringify(err) }`,
+                  `${swal('No se pudo renovar token','No fue posible renovar el token','error')}`,
+                  `${this.route.navigate(['/login'])}`
+                ))
+              )
+  }
+
   estaLogueado(){
     return (this.token.length > 5 )? true: false;
   }
@@ -132,7 +151,14 @@ export class UsuarioService {
                   swal('Usuario Creado', usuario.email,'success');
                   return  res.usuario;
                 }),
-                
+                // catchError(err => of({
+                //   'error': err.error.err.message
+                // }))                 
+          
+                catchError(err => of(
+                  `Error Retornado: $${JSON.stringify(err.error)}`,
+                  `${swal('Error',err.error.err.message,'error')}`,
+                ))
               )
   }
 
