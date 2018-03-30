@@ -67,7 +67,7 @@ export class HospitalService {
     let body = JSON.stringify(hospital);
     let headers = new HttpHeaders({'Content-Type':'application/json',
                                   'Authorization': this.token })
-     return this.http.put(`${this.url}updateHospital/${hospital._id}`, body, {headers})
+     return this.http.put(`${this.url}update-hospital/${hospital._id}`, body, {headers})
                 .pipe(
                   map((resp:any)=>{
                   swal("Hospital Actualizado!","", "success");
