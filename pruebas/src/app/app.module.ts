@@ -9,6 +9,7 @@ import { IncrementadorComponent } from './intermedio2/incrementador/incrementado
 import { MedicoComponent } from './intermedio2/medico/medico.component';
 import { RouterModule } from '@angular/router';
 import { RUTAS } from './avanzado/rutas/app.routes';
+import { RouterMedicoComponent } from './avanzado/router-medico/router-medico.component';
 
 
 
@@ -18,7 +19,8 @@ import { RUTAS } from './avanzado/rutas/app.routes';
     MedicosComponent,
     HospitalComponent,
     IncrementadorComponent,
-    MedicoComponent
+    MedicoComponent,
+    RouterMedicoComponent
   ],
   imports: [
     BrowserModule,
