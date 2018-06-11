@@ -1,0 +1,22 @@
+/* Actualizar angular 6 */
+
+Dentro del proyecto ejecutar, hacerlo en modo administrador en el cmd: 
+
+1. npm install @angular/cli
+2. ng update @angular/cli
+3. ng update
+4. ng update --all
+
+si despues de esto muestra mensajes que incompatiblidad por que falta algunas actualizaciones,
+de paquetes instalados del proyecto, lo que hacemos es el archivo packaje.json, poner manualmente,
+la version mas actual o la sugerida, y jecutamos de nuevo el comando:
+* ng update
+
+despues denuevo el :
+* ng update --all --force
+
+--si necesitamos borrar typescritp para instalar version recomendada
+npm uninstall --save typescript
+npm cache clean --force
+npm install --save typescript@2.7.2 ejemplo de version.
+----npm install --save--dev typescript@2.7.2 ejemplo de version opcional para desarrollo

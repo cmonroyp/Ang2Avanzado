@@ -1,0 +1,5 @@
+npm install -g npm@latest
+npm cache clean --force
+
+--desabilitar audiciones 
+npm set audit false
